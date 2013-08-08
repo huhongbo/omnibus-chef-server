@@ -18,13 +18,13 @@
 graylog2_gemfile = "/opt/chef-server/embedded/service/graylog2-webui/Gemfile"
 graylog2_webui_dir = node['chef_server']['graylog2-webui']['dir']
 graylog2_webui_etc_dir = File.join(graylog2_webui_dir, "etc")
-graylog2_webui_working_dir = File.join(graylog2_webui_dir, "working")
+graylog2_secret_token_config = File.join(graylog2_webui_etc_dir, "secret_token.rb")
+graylog2_webui_working_dir = "/opt/chef-server/embedded/service/graylog2-webui"
 graylog2_webui_tmp_dir = File.join(graylog2_webui_dir, "tmp")
 graylog2_webui_log_dir = node['chef_server']['graylog2-webui']['log_directory']
 [
   graylog2_webui_dir,
   graylog2_webui_etc_dir,
-  graylog2_webui_working_dir,
   graylog2_webui_tmp_dir,
   graylog2_webui_log_dir
 ].each do |dir_name|
@@ -72,6 +72,23 @@ end
 
 link "/opt/chef-server/embedded/service/graylog2-webui/tmp" do
   to graylog2_webui_tmp_dir
+end
+
+template graylog2_secret_token_config do
+  source "graylog2_secret_token.rb.erb"
+  owner "root"
+  group "root"
+  mode "0644"
+  variables(node['chef_server']['graylog2-webui'].to_hash)
+  notifies :restart, 'service[chef-server-webui]' if should_notify
+end
+
+file "/opt/chef-server/embedded/service/graylog2-webui/config/initializers/secret_token.rb" do
+   action :delete
+end
+
+link "/opt/chef-server/embedded/service/graylog2-webui/config/initializers/secret_token.rb" do
+  to graylog2_secret_token_config
 end
 
 execute "echo \"gem 'unicorn'\" >>#{graylog2_gemfile}" do

@@ -386,6 +386,7 @@ default['chef_server']['graylog2-webui']['worker_timeout'] = 3600
 default['chef_server']['graylog2-webui']['umask'] = "0022"
 default['chef_server']['graylog2-webui']['worker_processes'] = 2
 default['chef_server']['graylog2-webui']['environment'] = 'production'
+default['chef_server']['graylog2-webui']['cookie_secret'] = "be00f38958ac54245143a5f33eb5e6316b870110cb892bc290532f2381ecd0b1a735f29f5042718322c426df32bd1c50e737"
 
 ####
 # Mcollective

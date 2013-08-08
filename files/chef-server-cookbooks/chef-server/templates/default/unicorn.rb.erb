@@ -2,6 +2,7 @@
 # Unicorn config at <%= @name %>
 # Managed by Chef - Local Changes will be Nuked from Orbit (just to be sure)
 ##
+rails_env = ENV['RAILS_ENV'] || 'production'
 
 # What ports/sockets to listen on, and what options for them.
 <%- @listen.each do |port, options| %>
