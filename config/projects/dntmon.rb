@@ -67,6 +67,10 @@ deps << "gdash"
 deps << "geminabox"
 deps << "info-dashboard"
 
+#python
+deps << "python"
+deps << "pip"
+
 # integration testing
 deps << "chef-pedant" # test ALL THE THINGS!
 
