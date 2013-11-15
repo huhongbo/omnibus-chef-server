@@ -104,6 +104,8 @@ default['chef_server']['bookshelf']['svlogd_size'] = 1000000
 default['chef_server']['bookshelf']['svlogd_num'] = 10
 default['chef_server']['bookshelf']['vip'] = node['fqdn']
 default['chef_server']['bookshelf']['url'] = "https://#{node['fqdn']}"
+# Default: set to Host: header. Override to hardcode a url, "http://..."
+default['chef_server']['bookshelf']['external_url'] = :host_header
 default['chef_server']['bookshelf']['listen'] = '127.0.0.1'
 default['chef_server']['bookshelf']['port'] = 4321
 default['chef_server']['bookshelf']['stream_download'] = true
@@ -129,6 +131,8 @@ default['chef_server']['erchef']['cache_ttl'] = '3600'
 default['chef_server']['erchef']['db_pool_size'] = '20'
 default['chef_server']['erchef']['ibrowse_max_sessions'] = 256
 default['chef_server']['erchef']['ibrowse_max_pipeline_size'] = 1
+# Default: generate signed URLs based upon Host: header. Override with a url, "http:// ..."
+default['chef_server']['erchef']['base_resource_url'] = :host_header
 default['chef_server']['erchef']['s3_bucket'] = 'bookshelf'
 default['chef_server']['erchef']['s3_url_ttl'] = 900
 default['chef_server']['erchef']['s3_parallel_ops_timeout'] = 5000
@@ -138,6 +142,9 @@ default['chef_server']['erchef']['validation_client_name'] = "chef-validator"
 default['chef_server']['erchef']['umask'] = "0022"
 default['chef_server']['erchef']['web_ui_client_name'] = "chef-webui"
 default['chef_server']['erchef']['root_metric_key'] = "chefAPI"
+default['chef_server']['erchef']['depsolver_worker_count'] = 5
+default['chef_server']['erchef']['depsolver_timeout'] = 5000
+default['chef_server']['erchef']['max_request_size'] = 1000000
 
 ####
 # Chef Server WebUI
